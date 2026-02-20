@@ -62,9 +62,11 @@ exports.login = async (req, res) => {
       [token, user.uid],
     );
 
+    // 🔥 PRODUCTION COOKIE CONFIG
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
+      secure: true, // REQUIRED for HTTPS
+      sameSite: "none", // REQUIRED for cross-domain
     });
 
     res.json({ message: "Login successful" });
